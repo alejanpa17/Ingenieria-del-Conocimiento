@@ -3,21 +3,27 @@
      (type SYMBOL)
      (default atento)
      (allowed-values atento distraido))
-   (slot estado (type POSE))
    (slot salida (type SYMBOL)))
 
-(defclass ROBOT (is-a POSE))
 
 (defclass POSE (is-a ACTIVIDAD)
   (slot estado
     (type SYMBOL)
-    (default atento)
-    (allowed-values sentado levantado brazos_arriba)))
+    (default sentado)
+    (allowed-values sentado levantado brazos_arriba))
+  (slot individuo
+    (type SYMBOL)
+    (allowed-values robot ninio)))
+
 
 (defclass COLOR (is-a USER)
    (slot nombre
      (type SYMBOL)
-     (allowed-values azul amarillo rojo verde)))
+     (allowed-values azul amarillo rojo verde))
+   (slot individuo
+     (type SYMBOL)
+     (allowed-values robot ninio)))
+
 
 (defclass JUEGO (is-a USER)
   (slot nombre
@@ -26,7 +32,7 @@
   (slot estado
     (type SYMBOL)
     (default empezar)
-    (allowed-values empezar explicar en_proceso recordar finalizar))
+    (allowed-values empezado explicado en_proceso finalizado))
   (slot turno
     (type SYMBOL)
     (default robot)
@@ -36,14 +42,14 @@
     (range 0 5)
     (default 0)))
 
-(defclass TABLERO (is-a USER)
-  (slot estado_1 (type COLOR))
-  (slot estado_2 (type EXTREMIDAD)))
 
 (defclass EXTREMIDAD (is-a USER)
   (slot mano
     (type SYMBOL)
     (allowed-values derecha izquierda))
-  (slot pierna 
+  (slot pierna
     (type SYMBOL)
-    (allowed-values derecha izquierda)))
+    (allowed-values derecha izquierda))
+  (slot individuo
+    (type SYMBOL)
+    (allowed-values robot ninio)))
