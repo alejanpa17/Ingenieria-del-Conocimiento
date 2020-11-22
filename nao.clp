@@ -1,10 +1,10 @@
-(defclass NINIO (is-a USER)
-   (slot distraido
+(defclass PERSONALIDAD (is-a USER)
+   (slot ninio
      (type SYMBOL)
-     (allowed-values canta no_mira))
-   (slot violento
+     (allowed-values no_mira grita pega))
+   (slot robot
      (type SYMBOL)
-     (allowed-values gritar pegar)))
+     (allowed-values  atiende silencio calma)))
 
 
 (defclass POSE (is-a USER)
@@ -32,7 +32,7 @@
     (allowed-values imita_al_robot twister))
   (slot estado
     (type SYMBOL)
-    (default empezar)
+    (default empezado)
     (allowed-values empezado explicado en_proceso finalizado))
   (slot turno
     (type SYMBOL)
@@ -61,10 +61,9 @@
   ([game_1] of JUEGO (nombre imita_al_robot))
   ([game_2] of JUEGO (nombre twister))
 
-  ([ninio_1] of NINIO (distraido cantar))
-  ([ninio_2] of NINIO (distraido no_mirar))
-  ([ninio_3] of NINIO (violento gritar))
-  ([ninio_4] of NINIO (violento pegar))
+  ([ninio_1] of PERSONALIDAD (ninio no_mira) (robot atiende))
+  ([ninio_2] of PERSONALIDAD (ninio grita) (robot silencio))
+  ([ninio_3] of PERSONALIDAD (ninio pega) (robot calma))
 
   ([pose_r_1] of POSE (estado sentado) (individuo robot))
   ([pose_r_2] of POSE (estado levantado) (individuo robot))
@@ -90,4 +89,49 @@
   ([extr_n_6]of EXTREMIDAD (pierna derecha)(individuo ninio))
   ([extr_n_7]of EXTREMIDAD (pierna izquierda)(individuo ninio))
   ([extr_n_8]of EXTREMIDAD (mano izquierda)(individuo ninio))
+)
+
+
+
+(defrule corregir
+  (object (is-a PERSONALIDAD)(ninio ?a)(robot ?b))
+  ?game <- (object (is-a JUEGO)(estado empezado)(turno robot)(fase 0))
+
+  =>
+  (printout t "El ninio " ?a " entonces el robot " ?b crlf)
+)
+
+(defrule iniciar_juego
+  ?game <- (object (is-a JUEGO)(nombre ?a)(estado empezado)(turno robot)(fase 0))
+  =>
+  (modify-instance ?game (estado explicado)  )
+  (printout t "El robot saluda al ninio " crlf)
+)
+
+(defrule explicar_juego
+  ?game <- (object (is-a JUEGO)(nombre ?a)(estado explicado)(turno robot)(fase 0))
+  =>
+  (modify-instance ?game (estado en_proceso)(fase 1))
+  (printout t "El robot explica el juego " ?a " al ninio " crlf)
+)
+
+(defrule turno_robot
+  ?game <- (object (is-a JUEGO)(nombre ?a)(estado en_proceso)(turno robot)(fase ?b))
+  =>
+  (modify-instance ?game (turno ninio))
+  (printout t "Acaba el turno del robot " crlf)
+)
+
+(defrule turno_ninio
+  ?game <- (object (is-a JUEGO)(nombre ?a)(estado en_proceso)(turno ninio)(fase ?b))
+  =>
+  (modify-instance ?game (turno robot)(fase (+ ?b 1)))
+  (printout t "Acaba el turno del ninio " crlf)
+)
+
+(defrule finalizar_juego
+  ?game <- (object (is-a JUEGO)(nombre ?a)(estado en_proceso)(turno robot)(fase 5))
+  =>
+  (modify-instance ?game (estado finalizado))
+  (printout t "El robot finaliza el juego " ?a crlf)
 )
