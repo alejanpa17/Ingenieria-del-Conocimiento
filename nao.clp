@@ -7,26 +7,29 @@
      (allowed-values  atiende silencio calma)))
 
 
-(defclass POSE (is-a USER)
-  (slot estado
+(defclass JUEGOS (is-a USER)
+  (slot nombre
     (type SYMBOL)
-    (default sentado)
+    (allowed-values imita_al_robot twister))
+  (slot pose
+    (type SYMBOL)
     (allowed-values sentado levantado brazos_arriba))
+  (slot color
+    (type SYMBOL)
+    (allowed-values azul amarillo rojo verde))
+  (slot extremidad
+    (type SYMBOL)
+    (allowed-values mano_derecha mano_izquierda pierna_derecha pierna_izquierda))
   (slot individuo
     (type SYMBOL)
-    (allowed-values robot ninio)))
+    (allowed-values robot ninio))
+  (slot jugando
+    (default inactivo)
+    (type SYMBOL)
+    (allowed-values activo inactivo)))
 
 
-(defclass COLOR (is-a USER)
-   (slot nombre
-     (type SYMBOL)
-     (allowed-values azul amarillo rojo verde))
-   (slot individuo
-     (type SYMBOL)
-     (allowed-values robot ninio)))
-
-
-(defclass JUEGO (is-a USER)
+(defclass SESION (is-a USER)
   (slot nombre
     (type SYMBOL)
     (allowed-values imita_al_robot twister))
@@ -44,94 +47,192 @@
     (default 0)))
 
 
-(defclass EXTREMIDAD (is-a USER)
-  (slot mano
-    (type SYMBOL)
-    (allowed-values derecha izquierda))
-  (slot pierna
-    (type SYMBOL)
-    (allowed-values derecha izquierda))
-  (slot individuo
-    (type SYMBOL)
-    (allowed-values robot ninio)))
 
 
-(definstances start
+(definstances sesion
+  ; ([game_1] of SESION (nombre imita_al_robot))
+  ([game_2] of SESION (nombre twister))
+)
 
-  ([game_1] of JUEGO (nombre imita_al_robot))
-  ([game_2] of JUEGO (nombre twister))
-
+(definstances personalidad
   ([ninio_1] of PERSONALIDAD (ninio no_mira) (robot atiende))
   ([ninio_2] of PERSONALIDAD (ninio grita) (robot silencio))
   ([ninio_3] of PERSONALIDAD (ninio pega) (robot calma))
+)
 
-  ([pose_r_1] of POSE (estado sentado) (individuo robot))
-  ([pose_r_2] of POSE (estado levantado) (individuo robot))
-  ([pose_r_3] of POSE (estado brazos_arriba) (individuo robot))
-  ([pose_n_1] of POSE (estado sentado) (individuo ninio))
-  ([pose_n_2] of POSE (estado levantado) (individuo ninio))
-  ([pose_n_3] of POSE (estado brazos_arriba) (individuo ninio))
+(definstances juego_imitar
 
-  ([color_r_1] of COLOR (nombre azul) (individuo robot))
-  ([color_r_2] of COLOR (nombre amarillo) (individuo robot))
-  ([color_r_3] of COLOR (nombre rojo) (individuo robot))
-  ([color_r_3] of COLOR (nombre verde) (individuo robot))
-  ([color_n_1] of COLOR (nombre azul) (individuo ninio))
-  ([color_n_2] of COLOR (nombre amarillo) (individuo ninio))
-  ([color_n_3] of COLOR (nombre rojo) (individuo ninio))
-  ([color_n_3] of COLOR (nombre verde) (individuo ninio))
+  ([pose_r_1] of JUEGOS (nombre imita_al_robot) (pose sentado) (individuo robot))
+  ([pose_r_2] of JUEGOS (nombre imita_al_robot) (pose levantado) (individuo robot))
+  ([pose_r_3] of JUEGOS (nombre imita_al_robot) (pose brazos_arriba) (individuo robot))
+  ([pose_n_1] of JUEGOS (nombre imita_al_robot) (pose sentado) (individuo ninio))
+  ([pose_n_2] of JUEGOS (nombre imita_al_robot) (pose levantado) (individuo ninio))
+  ([pose_n_3] of JUEGOS (nombre imita_al_robot) (pose brazos_arriba) (individuo ninio))
 
-  ([extr_r_1]of EXTREMIDAD (mano derecha)(individuo robot))
-  ([extr_r_2]of EXTREMIDAD (pierna derecha)(individuo robot))
-  ([extr_r_3]of EXTREMIDAD (pierna izquierda)(individuo robot))
-  ([extr_r_4]of EXTREMIDAD (mano izquierda)(individuo robot))
-  ([extr_n_5]of EXTREMIDAD (mano derecha)(individuo ninio))
-  ([extr_n_6]of EXTREMIDAD (pierna derecha)(individuo ninio))
-  ([extr_n_7]of EXTREMIDAD (pierna izquierda)(individuo ninio))
-  ([extr_n_8]of EXTREMIDAD (mano izquierda)(individuo ninio))
+)
+
+(definstances juego_twister
+
+  ([tw_r_1] of JUEGOS (nombre twister) (color azul) (extremidad mano_derecha)(individuo robot))
+  ([tw_r_2] of JUEGOS (nombre twister) (color azul) (extremidad mano_izquierda)(individuo robot))
+  ([tw_r_3] of JUEGOS (nombre twister) (color azul) (extremidad pierna_izquierda)(individuo robot))
+  ([tw_r_4] of JUEGOS (nombre twister) (color azul) (extremidad pierna_derecha)(individuo robot))
+
+  ([tw_r_5] of JUEGOS (nombre twister) (color amarillo) (extremidad mano_derecha)(individuo robot))
+  ([tw_r_6] of JUEGOS (nombre twister) (color amarillo) (extremidad mano_izquierda)(individuo robot))
+  ([tw_r_7] of JUEGOS (nombre twister) (color amarillo) (extremidad pierna_izquierda)(individuo robot))
+  ([tw_r_8] of JUEGOS (nombre twister) (color amarillo) (extremidad pierna_derecha)(individuo robot))
+
+  ([tw_r_9] of JUEGOS (nombre twister) (color rojo) (extremidad mano_derecha)(individuo robot))
+  ([tw_r_10] of JUEGOS (nombre twister) (color rojo) (extremidad mano_izquierda)(individuo robot))
+  ([tw_r_11] of JUEGOS (nombre twister) (color rojo) (extremidad pierna_izquierda)(individuo robot))
+  ([tw_r_12] of JUEGOS (nombre twister) (color rojo) (extremidad pierna_derecha)(individuo robot))
+
+  ([tw_r_13] of JUEGOS (nombre twister) (color verde) (extremidad mano_derecha)(individuo robot))
+  ([tw_r_14] of JUEGOS (nombre twister) (color verde) (extremidad mano_izquierda)(individuo robot))
+  ([tw_r_15] of JUEGOS (nombre twister) (color verde) (extremidad pierna_izquierda)(individuo robot))
+  ([tw_r_16] of JUEGOS (nombre twister) (color verde) (extremidad pierna_derecha)(individuo robot))
+
+
+
+    ([tw_n_1] of JUEGOS (nombre twister) (color azul) (extremidad mano_derecha)(individuo ninio))
+    ([tw_n_2] of JUEGOS (nombre twister) (color azul) (extremidad mano_izquierda)(individuo ninio))
+    ([tw_n_3] of JUEGOS (nombre twister) (color azul) (extremidad pierna_izquierda)(individuo ninio))
+    ([tw_n_4] of JUEGOS (nombre twister) (color azul) (extremidad pierna_derecha)(individuo ninio))
+
+    ([tw_n_5] of JUEGOS (nombre twister) (color amarillo) (extremidad mano_derecha)(individuo ninio))
+    ([tw_n_6] of JUEGOS (nombre twister) (color amarillo) (extremidad mano_izquierda)(individuo ninio))
+    ([tw_n_7] of JUEGOS (nombre twister) (color amarillo) (extremidad pierna_izquierda)(individuo ninio))
+    ([tw_n_8] of JUEGOS (nombre twister) (color amarillo) (extremidad pierna_derecha)(individuo ninio))
+
+    ([tw_n_9] of JUEGOS (nombre twister) (color rojo) (extremidad mano_derecha)(individuo ninio))
+    ([tw_n_10] of JUEGOS (nombre twister) (color rojo) (extremidad mano_izquierda)(individuo ninio))
+    ([tw_n_11] of JUEGOS (nombre twister) (color rojo) (extremidad pierna_izquierda)(individuo ninio))
+    ([tw_n_12] of JUEGOS (nombre twister) (color rojo) (extremidad pierna_derecha)(individuo ninio))
+
+    ([tw_n_13] of JUEGOS (nombre twister) (color verde) (extremidad mano_derecha)(individuo ninio))
+    ([tw_n_14] of JUEGOS (nombre twister) (color verde) (extremidad mano_izquierda)(individuo ninio))
+    ([tw_n_15] of JUEGOS (nombre twister) (color verde) (extremidad pierna_izquierda)(individuo ninio))
+    ([tw_n_16] of JUEGOS (nombre twister) (color verde) (extremidad pierna_derecha)(individuo ninio))
+
+  ; ([color_r_2] of JUEGOS (nombre twister) (color amarillo) (individuo robot))
+  ; ([color_r_3] of JUEGOS (nombre twister) (color rojo) (individuo robot))
+  ; ([color_r_4] of JUEGOS (nombre twister) (color verde) (individuo robot))
+  ; ([color_n_1] of JUEGOS (nombre twister) (color azul) (individuo ninio))
+  ; ([color_n_2] of JUEGOS (nombre twister) (color amarillo) (individuo ninio))
+  ; ([color_n_3] of JUEGOS (nombre twister) (color rojo) (individuo ninio))
+  ; ([color_n_4] of JUEGOS (nombre twister) (color verde) (individuo ninio))
+  ;
+  ; ([extr_r_1] of JUEGOS (nombre twister) (extremidad derecha)(individuo robot))
+  ; ([extr_r_2] of JUEGOS (nombre twister) (extremidad derecha)(individuo robot))
+  ; ([extr_r_3] of JUEGOS (nombre twister) (extremidad izquierda)(individuo robot))
+  ; ([extr_r_4] of JUEGOS (nombre twister) (extremidad izquierda)(individuo robot))
+  ; ([extr_n_1] of JUEGOS (nombre twister) (extremidad derecha)(individuo ninio))
+  ; ([extr_n_2] of JUEGOS (nombre twister) (extremidad derecha)(individuo ninio))
+  ; ([extr_n_3] of JUEGOS (nombre twister) (extremidad izquierda)(individuo ninio))
+  ; ([extr_n_4] of JUEGOS (nombre twister) (extremidad izquierda)(individuo ninio))
+
 )
 
 
 
-(defrule corregir
-  (object (is-a PERSONALIDAD)(ninio ?a)(robot ?b))
-  ?game <- (object (is-a JUEGO)(estado empezado)(turno robot)(fase 0))
-
-  =>
-  (printout t "El ninio " ?a " entonces el robot " ?b crlf)
-)
+; (defrule corregir
+;   (object (is-a PERSONALIDAD)(ninio ?a)(robot ?b))
+;   ?game <- (object (is-a SESION)(estado empezado)(turno robot)(fase 0))
+;
+;   =>
+;   (printout t "El ninio " ?a " entonces el robot " ?b crlf)
+; )
 
 (defrule iniciar_juego
-  ?game <- (object (is-a JUEGO)(nombre ?a)(estado empezado)(turno robot)(fase 0))
+  ?game <- (object (is-a SESION)(nombre ?a)(estado empezado)(turno robot)(fase 0))
   =>
   (modify-instance ?game (estado explicado)  )
   (printout t "El robot saluda al ninio " crlf)
 )
 
 (defrule explicar_juego
-  ?game <- (object (is-a JUEGO)(nombre ?a)(estado explicado)(turno robot)(fase 0))
+  ?game <- (object (is-a SESION)(nombre ?a)(estado explicado)(turno robot)(fase 0))
   =>
-  (modify-instance ?game (estado en_proceso)(fase 1))
+  (modify-instance ?game (estado en_proceso))
   (printout t "El robot explica el juego " ?a " al ninio " crlf)
 )
 
 (defrule turno_robot
-  ?game <- (object (is-a JUEGO)(nombre ?a)(estado en_proceso)(turno robot)(fase ?b))
+  ?game <- (object (is-a SESION)(nombre ?a)(estado en_proceso)(turno robot)(fase ?f))
+  ?move <-(object (is-a JUEGOS)(nombre ?a)(individuo robot)(jugando inactivo))
   =>
   (modify-instance ?game (turno ninio))
-  (printout t "Acaba el turno del robot " crlf)
+  (modify-instance ?move (jugando activo))
+  (printout t " " crlf)
+  (printout t "TURNO " ?f crlf)
+  (printout t "El robot elige una accion " crlf)
 )
 
 (defrule turno_ninio
-  ?game <- (object (is-a JUEGO)(nombre ?a)(estado en_proceso)(turno ninio)(fase ?b))
+  ?game <- (object (is-a SESION)(nombre ?a)(estado en_proceso)(turno ninio))
+  ?move <-(object (is-a JUEGOS)(nombre ?a)(individuo ninio)(jugando inactivo))
   =>
-  (modify-instance ?game (turno robot)(fase (+ ?b 1)))
-  (printout t "Acaba el turno del ninio " crlf)
+  (modify-instance ?game (turno robot))
+  (modify-instance ?move (jugando activo))
+  (printout t "El ninio hace una accion " crlf)
 )
 
+(defrule check_bien_imita
+  (declare (salience 20))
+  ?game <- (object (is-a SESION)(nombre imita_al_robot)(estado en_proceso)(turno robot)(fase ?f))
+  ?move_robot <-(object (is-a JUEGOS)(nombre imita_al_robot)(pose ?x)(individuo robot)(jugando activo))
+  ?move_ninio <-(object (is-a JUEGOS)(nombre imita_al_robot)(pose ?x)(individuo ninio)(jugando activo))
+  =>
+  (modify-instance ?game (fase (+ ?f 1)))
+  (modify-instance ?move_robot (jugando inactivo))
+  (modify-instance ?move_ninio (jugando inactivo))
+  (printout t "Bien, el ninio acerto!!! Ambos hicieron la pose " ?x crlf)
+)
+
+(defrule check_mal_imita
+  (declare (salience 10))
+  ?game <- (object (is-a SESION)(nombre imita_al_robot)(estado en_proceso)(turno robot)(fase ?f))
+  ?move_robot <-(object (is-a JUEGOS)(nombre imita_al_robot)(pose ?x)(individuo robot)(jugando activo))
+  ?move_ninio <-(object (is-a JUEGOS)(nombre imita_al_robot)(pose ?y)(individuo ninio)(jugando activo))
+  =>
+  (modify-instance ?game (fase (+ ?f 1)))
+  (modify-instance ?move_robot (jugando inactivo))
+  (modify-instance ?move_ninio (jugando inactivo))
+  (printout t "Mal, el ninio fallo!!! El robot hizo la pose " ?x " y el ninio la pose " ?y crlf)
+)
+
+(defrule check_bien_twister
+  (declare (salience 20))
+  ?game <- (object (is-a SESION)(nombre twister)(estado en_proceso)(turno robot)(fase ?f))
+  ?move_robot <-(object (is-a JUEGOS)(nombre twister)(color ?x) (extremidad ?y) (individuo robot) (jugando activo))
+  ?move_ninio <-(object (is-a JUEGOS)(nombre twister)(color ?x) (extremidad ?y) (individuo ninio) (jugando activo))
+  =>
+  (modify-instance ?game (fase (+ ?f 1)))
+  (modify-instance ?move_robot (jugando inactivo))
+  (modify-instance ?move_ninio (jugando inactivo))
+  (printout t "Bien, el ninio acerto!!! Puso su " ?y " en el color " ?x crlf)
+)
+
+(defrule check_mal_twister
+  (declare (salience 10))
+  ?game <- (object (is-a SESION)(nombre twister)(estado en_proceso)(turno robot)(fase ?f))
+  ?move_robot <-(object (is-a JUEGOS)(nombre twister)(color ?x) (extremidad ?y) (individuo robot)(jugando activo))
+  ?move_ninio <-(object (is-a JUEGOS)(nombre twister)(color ?a) (extremidad ?b) (individuo ninio)(jugando activo))
+  =>
+  (modify-instance ?game (fase (+ ?f 1)))
+  (modify-instance ?move_robot (jugando inactivo))
+  (modify-instance ?move_ninio (jugando inactivo))
+  (printout t "Mal, el ninio fallo!!! Puso su " ?b " en el color " ?a " y era " ?y " en el color " ?x crlf)
+)
+
+
+
 (defrule finalizar_juego
-  ?game <- (object (is-a JUEGO)(nombre ?a)(estado en_proceso)(turno robot)(fase 5))
+  (declare (salience 100))
+  ?game <- (object (is-a SESION)(nombre ?a)(estado en_proceso)(turno robot)(fase 5))
   =>
   (modify-instance ?game (estado finalizado))
+  (printout t " " crlf)
   (printout t "El robot finaliza el juego " ?a crlf)
 )
