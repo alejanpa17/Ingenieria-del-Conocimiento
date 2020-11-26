@@ -182,7 +182,7 @@
   =>
   (unmake-instance ?pers)
   (make-instance of PERSONALIDAD (ninio ?a)(robot ?b))
-  (printout t "El ninio " ?a " entonces el robot le pideeeeeeee " ?b crlf)
+  (printout t "El ninio " ?a " entonces el robot le pide " ?b crlf)
 )
 
 (defrule corregir_recordar
