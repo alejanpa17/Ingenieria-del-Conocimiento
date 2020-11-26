@@ -33,21 +33,20 @@
   (slot estado
     (type SYMBOL)
     (default empezado)
-    (allowed-values empezado explicado en_proceso finalizado))
+    (allowed-values empezado explicado en_proceso recordado finalizado))
   (slot turno
     (type SYMBOL)
     (default robot)
     (allowed-values robot ninio))
   (slot fase
     (type INTEGER)
-    (range 0 5)
     (default 0)))
 
 
 
 
 (definstances sesion
-  ;([game_1] of SESION (nombre imita_al_robot))
+  ([game_1] of SESION (nombre imita_al_robot))
   ([game_2] of SESION (nombre twister))
 )
 
@@ -93,15 +92,17 @@
 
 (defrule iniciar_juego
   ?game <- (object (is-a SESION)(nombre ?a)(estado empezado)(turno robot)(fase 0))
+  ?game2 <- (object (is-a SESION)(nombre ?b)(estado empezado)(turno robot)(fase 0))
+  (test (neq ?a ?b))
   =>
-  (modify-instance ?game (estado explicado)  )
+  (modify-instance ?game (estado explicado))
   (printout t "El robot saluda al ninio " crlf)
 )
 
 (defrule explicar_juego
   ?game <- (object (is-a SESION)(nombre ?a)(estado explicado)(turno robot)(fase 0))
   =>
-  (modify-instance ?game (estado en_proceso))
+  (modify-instance ?game (estado en_proceso)(fase 1))
   (printout t "El robot explica el juego " ?a " al ninio " crlf)
 )
 
@@ -177,16 +178,44 @@
 
 (defrule corregir
   ?pers <-(object (is-a PERSONALIDAD)(ninio ?a)(robot ?b))
-  ;?game <- (object (is-a SESION)(estado empezado)(turno robot)(fase 0))
+  ?game <- (object (is-a SESION)(estado explicado))
   =>
-  (printout t "El ninio " ?a " entonces el robot le pide " ?b crlf)
+  (unmake-instance ?pers)
+  (make-instance of PERSONALIDAD (ninio ?a)(robot ?b))
+  (printout t "El ninio " ?a " entonces el robot le pideeeeeeee " ?b crlf)
+)
 
+(defrule corregir_recordar
+  ?pers <-(object (is-a PERSONALIDAD)(ninio ?a)(robot ?b))
+  ?game <- (object (is-a SESION)(estado en_proceso)(turno ninio))
+  =>
+  (unmake-instance ?pers)
+  (make-instance of PERSONALIDAD (ninio ?a)(robot ?b))
+  (modify-instance ?game (estado recordado))
+  (printout t "El ninio " ?a " entonces el robot le pide " ?b crlf)
+)
+
+(defrule recordar_imita
+  ?game <- (object (is-a SESION)(nombre imita_al_robot )(estado recordado))
+  ?move_robot <-(object (is-a JUEGOS)(nombre imita_al_robot)(pose ?x)(individuo robot))
+  =>
+  (modify-instance ?game (estado en_proceso))
+  (printout t "El robot le recuerda al ninio que la pose es " ?x crlf)
+)
+
+(defrule recordar_twister
+  ?game <- (object (is-a SESION)(nombre twister)(estado recordado))
+  ?move_robot <-(object (is-a JUEGOS)(nombre twister)(color ?x) (extremidad ?y) (individuo robot))
+  =>
+  (modify-instance ?game (estado en_proceso))
+  (printout t "El robot le recuerda al ninio que el color es " ?x " y la extremidad es " ?y crlf)
 )
 
 
 (defrule finalizar_juego
   (declare (salience 100))
-  ?game <- (object (is-a SESION)(nombre ?a)(estado en_proceso)(turno robot)(fase 5))
+  ?game <- (object (is-a SESION)(nombre ?a)(estado en_proceso)(turno robot)(fase ?f))
+  (test (> ?f 5))
   =>
   (modify-instance ?game (estado finalizado))
   (printout t " " crlf)
