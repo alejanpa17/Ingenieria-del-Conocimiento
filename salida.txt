@@ -1,0 +1,34 @@
+TRUE
+CLIPS> (run)
+El robot saluda al ninio 
+La personalidad del ninio es distraido
+El robot explica el juego twister al ninio 
+ 
+TURNO 1
+El robot elige mano_izquierda en el color azul
+El ninio hace una accion 
+Mal, el ninio fallo!!! Puso su pierna_derecha en el color rojo y era mano_izquierda en el color azul
+ 
+TURNO 2
+El robot elige pierna_derecha en el color amarillo
+El ninio hace una accion 
+Mal, el ninio fallo!!! Puso su pierna_izquierda en el color amarillo y era pierna_derecha en el color amarillo
+ 
+TURNO 3
+El robot elige mano_derecha en el color rojo
+El ninio hace una accion 
+Mal, el ninio fallo!!! Puso su mano_izquierda en el color azul y era mano_derecha en el color rojo
+ 
+TURNO 4
+El robot elige mano_izquierda en el color azul
+El ninio hace una accion 
+Mal, el ninio fallo!!! Puso su pierna_derecha en el color amarillo y era mano_izquierda en el color azul
+ 
+TURNO 5
+El robot elige pierna_derecha en el color verde
+El ninio hace una accion 
+Bien, el ninio acerto!!! Puso su pierna_derecha en el color verde
+ 
+El robot finaliza el juego twister
+<== Focus MAIN
+CLIPS> (dribble-off)

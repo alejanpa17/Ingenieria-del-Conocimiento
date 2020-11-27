@@ -1,4 +1,7 @@
 (defclass PERSONALIDAD (is-a USER)
+   (slot personalidad
+     (type SYMBOL)
+     (allowed-values distraido agresivo))
    (slot ninio
      (type SYMBOL)
      (allowed-values no_mira grita pega))
@@ -38,12 +41,18 @@
     (type SYMBOL)
     (default robot)
     (allowed-values robot ninio))
+  (slot personalidad
+    (type SYMBOL)
+    (allowed-values distraido agresivo))
   (slot fase
     (type INTEGER)
     (default 0)))
 
 
-
+(deffacts personalidades
+    (personalidad distraido)
+    (personalidad agresivo)
+)
 
 (definstances sesion
   ([game_1] of SESION (nombre imita_al_robot))
@@ -51,9 +60,9 @@
 )
 
 (definstances personalidad
-  ([ninio_1] of PERSONALIDAD (ninio no_mira) (robot atiende))
-  ([ninio_2] of PERSONALIDAD (ninio grita) (robot silencio))
-  ([ninio_3] of PERSONALIDAD (ninio pega) (robot calma))
+  ([ninio_1] of PERSONALIDAD (personalidad distraido) (ninio no_mira) (robot atiende))
+  ([ninio_2] of PERSONALIDAD (personalidad agresivo) (ninio grita) (robot silencio))
+  ([ninio_3] of PERSONALIDAD (personalidad agresivo) (ninio pega) (robot calma))
 )
 
 (definstances juego_imitar
@@ -93,10 +102,12 @@
 (defrule iniciar_juego
   ?game <- (object (is-a SESION)(nombre ?a)(estado empezado)(turno robot)(fase 0))
   ?game2 <- (object (is-a SESION)(nombre ?b)(estado empezado)(turno robot)(fase 0))
+  (personalidad ?p)
   (test (neq ?a ?b))
   =>
-  (modify-instance ?game (estado explicado))
+  (modify-instance ?game (estado explicado) (personalidad ?p))
   (printout t "El robot saluda al ninio " crlf)
+  (printout t "La personalidad del ninio es " ?p crlf)
 )
 
 (defrule explicar_juego
@@ -106,16 +117,28 @@
   (printout t "El robot explica el juego " ?a " al ninio " crlf)
 )
 
-(defrule turno_robot
-  ?game <- (object (is-a SESION)(nombre ?a)(estado en_proceso)(turno robot)(fase ?f))
-  ?move <-(object (is-a JUEGOS)(nombre ?a)(pose ?p)(color ?c)(extremidad ?e)(individuo none))
+(defrule turno_robot_imita
+  ?game <- (object (is-a SESION)(nombre imita_al_robot)(estado en_proceso)(turno robot)(fase ?f))
+  ?move <-(object (is-a JUEGOS)(nombre imita_al_robot)(pose ?p)(individuo none))
   =>
   (modify-instance ?game (turno ninio))
-  (make-instance of JUEGOS (nombre ?a)(pose ?p)(color ?c)(extremidad ?e)(individuo robot))
+  (make-instance of JUEGOS (nombre imita_al_robot)(pose ?p)(individuo robot))
   (printout t " " crlf)
   (printout t "TURNO " ?f crlf)
-  (printout t "El robot elige una accion " crlf)
+  (printout t "El robot hace la pose " ?p crlf)
 )
+
+(defrule turno_robot_twister
+  ?game <- (object (is-a SESION)(nombre twister)(estado en_proceso)(turno robot)(fase ?f))
+  ?move <-(object (is-a JUEGOS)(nombre twister)(color ?c)(extremidad ?e)(individuo none))
+  =>
+  (modify-instance ?game (turno ninio))
+  (make-instance of JUEGOS (nombre twister)(color ?c)(extremidad ?e)(individuo robot))
+  (printout t " " crlf)
+  (printout t "TURNO " ?f crlf)
+  (printout t "El robot elige " ?e " en el color " ?c  crlf)
+)
+
 
 (defrule turno_ninio
   ?game <- (object (is-a SESION)(nombre ?a)(estado en_proceso)(turno ninio))
@@ -177,20 +200,20 @@
 )
 
 (defrule corregir
-  ?pers <-(object (is-a PERSONALIDAD)(ninio ?a)(robot ?b))
-  ?game <- (object (is-a SESION)(estado explicado))
+  ?pers <-(object (is-a PERSONALIDAD)(personalidad ?p)(ninio ?a)(robot ?b))
+  ?game <- (object (is-a SESION)(estado explicado)(personalidad ?p))
   =>
   (unmake-instance ?pers)
-  (make-instance of PERSONALIDAD (ninio ?a)(robot ?b))
+  (make-instance of PERSONALIDAD (personalidad ?p)(ninio ?a)(robot ?b))
   (printout t "El ninio " ?a " entonces el robot le pide " ?b crlf)
 )
 
 (defrule corregir_recordar
-  ?pers <-(object (is-a PERSONALIDAD)(ninio ?a)(robot ?b))
-  ?game <- (object (is-a SESION)(estado en_proceso)(turno ninio))
+  ?pers <-(object (is-a PERSONALIDAD)(personalidad ?p)(ninio ?a)(robot ?b))
+  ?game <- (object (is-a SESION)(estado en_proceso)(turno ninio)(personalidad ?p))
   =>
   (unmake-instance ?pers)
-  (make-instance of PERSONALIDAD (ninio ?a)(robot ?b))
+  (make-instance of PERSONALIDAD (personalidad ?p)(ninio ?a)(robot ?b))
   (modify-instance ?game (estado recordado))
   (printout t "El ninio " ?a " entonces el robot le pide " ?b crlf)
 )
