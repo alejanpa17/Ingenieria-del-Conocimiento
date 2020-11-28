@@ -1,34 +1,54 @@
 TRUE
 CLIPS> (run)
 El robot saluda al ninio 
-La personalidad del ninio es distraido
-El robot explica el juego twister al ninio 
+La personalidad del ninio es agresivo
+El ninio pega entonces el robot le pide calma
+El ninio pega entonces el robot le pide calma
+El ninio pega entonces el robot le pide calma
+El ninio pega entonces el robot le pide calma
+El ninio pega entonces el robot le pide calma
+El ninio pega entonces el robot le pide calma
+El ninio pega entonces el robot le pide calma
+El ninio pega entonces el robot le pide calma
+El ninio pega entonces el robot le pide calma
+El ninio pega entonces el robot le pide calma
+El robot explica el juego imita_al_robot al ninio 
  
 TURNO 1
-El robot elige mano_izquierda en el color azul
+El robot hace la pose brazos_arriba
+El ninio pega entonces el robot le pide calma
+El robot le recuerda al ninio que la pose es brazos_arriba
 El ninio hace una accion 
-Mal, el ninio fallo!!! Puso su pierna_derecha en el color rojo y era mano_izquierda en el color azul
+Mal, el ninio fallo!!! El robot hizo la pose brazos_arriba y el ninio la pose sentado
  
 TURNO 2
-El robot elige pierna_derecha en el color amarillo
+El robot hace la pose brazos_arriba
+El ninio grita entonces el robot le pide silencio
+El robot le recuerda al ninio que la pose es brazos_arriba
 El ninio hace una accion 
-Mal, el ninio fallo!!! Puso su pierna_izquierda en el color amarillo y era pierna_derecha en el color amarillo
+Mal, el ninio fallo!!! El robot hizo la pose brazos_arriba y el ninio la pose levantado
  
 TURNO 3
-El robot elige mano_derecha en el color rojo
+El robot hace la pose levantado
+El ninio grita entonces el robot le pide silencio
+El robot le recuerda al ninio que la pose es levantado
 El ninio hace una accion 
-Mal, el ninio fallo!!! Puso su mano_izquierda en el color azul y era mano_derecha en el color rojo
+Mal, el ninio fallo!!! El robot hizo la pose levantado y el ninio la pose brazos_arriba
  
 TURNO 4
-El robot elige mano_izquierda en el color azul
+El robot hace la pose levantado
+El ninio pega entonces el robot le pide calma
+El robot le recuerda al ninio que la pose es levantado
+El ninio grita entonces el robot le pide silencio
+El robot le recuerda al ninio que la pose es levantado
 El ninio hace una accion 
-Mal, el ninio fallo!!! Puso su pierna_derecha en el color amarillo y era mano_izquierda en el color azul
+Bien, el ninio acerto!!! Ambos hicieron la pose levantado
  
 TURNO 5
-El robot elige pierna_derecha en el color verde
+El robot hace la pose brazos_arriba
 El ninio hace una accion 
-Bien, el ninio acerto!!! Puso su pierna_derecha en el color verde
+Mal, el ninio fallo!!! El robot hizo la pose brazos_arriba y el ninio la pose sentado
  
-El robot finaliza el juego twister
+El robot finaliza el juego imita_al_robot
 <== Focus MAIN
 CLIPS> (dribble-off)

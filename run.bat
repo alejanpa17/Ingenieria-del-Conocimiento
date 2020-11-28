@@ -4,8 +4,8 @@
 # 'focus' debería mostrar solo los prints, que son volcados a salida.txt con 'dribble-on'
 
 (load nao.clp)
-;(load reglas.clp)
-;(load prueba-1.clp)
+(load reglas.clp)
+(load prueba-1.clp)
 (seed (integer (time)))
 (set-strategy random)
 (watch focus)
