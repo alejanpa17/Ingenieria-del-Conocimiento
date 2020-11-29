@@ -1,0 +1,32 @@
+CLIPS> (run)
+El robot saluda al ninio 
+La personalidad del ninio es distraido
+El robot explica el juego twister al ninio 
+ 
+TURNO 1
+El robot elige mano_izquierda en el color rojo
+El ninio hace una accion 
+Mal, el ninio fallo!!! Puso su inventada4 en el color inventado y era mano_izquierda en el color rojo
+ 
+TURNO 2
+El robot elige inventada1 en el color inventado
+El ninio hace una accion 
+Mal, el ninio fallo!!! Puso su inventada4 en el color inventado y era inventada1 en el color inventado
+ 
+TURNO 3
+El robot elige inventada4 en el color inventado2
+El ninio hace una accion 
+Mal, el ninio fallo!!! Puso su pierna_izquierda en el color rojo y era inventada4 en el color inventado2
+ 
+TURNO 4
+El robot elige mano_izquierda en el color rojo
+El ninio hace una accion 
+Mal, el ninio fallo!!! Puso su inventada1 en el color inventado2 y era mano_izquierda en el color rojo
+ 
+TURNO 5
+El robot elige inventada4 en el color inventado
+El ninio hace una accion 
+Mal, el ninio fallo!!! Puso su mano_izquierda en el color rojo y era inventada4 en el color inventado
+ 
+El robot finaliza el juego twister
+<== Focus MAIN

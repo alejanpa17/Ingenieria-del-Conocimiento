@@ -1,0 +1,7 @@
+CLIPS> (run)
+El robot saluda al ninio 
+La personalidad del ninio es distraido
+El ninio no_mira entonces el robot le pide atiende
+El ninio no_mira entonces el robot le pide atiende
+El robot explica el juego juego_inventado al ninio 
+<== Focus MAIN

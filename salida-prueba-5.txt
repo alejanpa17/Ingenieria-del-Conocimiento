@@ -1,0 +1,38 @@
+CLIPS> (run)
+El robot saluda al ninio 
+La personalidad del ninio es inventada
+El ninio llora entonces el robot le pide tranquilizarse
+El ninio llora entonces el robot le pide tranquilizarse
+El ninio llora entonces el robot le pide tranquilizarse
+El ninio llora entonces el robot le pide tranquilizarse
+El robot explica el juego imita_al_robot al ninio 
+ 
+TURNO 1
+El robot hace la pose levantado
+El ninio hace una accion 
+Bien, el ninio acerto!!! Ambos hicieron la pose levantado
+ 
+TURNO 2
+El robot hace la pose brazos_arriba
+El ninio hace una accion 
+Mal, el ninio fallo!!! El robot hizo la pose brazos_arriba y el ninio la pose levantado
+ 
+TURNO 3
+El robot hace la pose brazos_arriba
+El ninio hace una accion 
+Mal, el ninio fallo!!! El robot hizo la pose brazos_arriba y el ninio la pose levantado
+ 
+TURNO 4
+El robot hace la pose sentado
+El ninio hace una accion 
+Mal, el ninio fallo!!! El robot hizo la pose sentado y el ninio la pose levantado
+ 
+TURNO 5
+El robot hace la pose levantado
+El ninio duerme entonces el robot le pide despierta
+El robot le recuerda al ninio que la pose es levantado
+El ninio hace una accion 
+Mal, el ninio fallo!!! El robot hizo la pose levantado y el ninio la pose brazos_arriba
+ 
+El robot finaliza el juego imita_al_robot
+<== Focus MAIN

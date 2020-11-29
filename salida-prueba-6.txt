@@ -1,0 +1,45 @@
+CLIPS> (run)
+El robot saluda al ninio 
+La personalidad del ninio es agresivo
+El ninio grita entonces el robot le pide silencio
+El ninio pega entonces el robot le pide calma
+El ninio pega entonces el robot le pide calma
+El ninio pega entonces el robot le pide calma
+El ninio pega entonces el robot le pide calma
+El ninio pega entonces el robot le pide calma
+El ninio pega entonces el robot le pide calma
+El ninio pega entonces el robot le pide calma
+El ninio pega entonces el robot le pide calma
+El robot explica el juego imita_al_robot al ninio 
+ 
+TURNO 1
+El robot hace la pose brazos_arriba
+El ninio hace una accion 
+Bien, el ninio acerto!!! Ambos hicieron la pose brazos_arriba
+ 
+TURNO 2
+El robot hace la pose brazos_arriba
+El ninio hace una accion 
+Mal, el ninio fallo!!! El robot hizo la pose brazos_arriba y el ninio la pose inventada2
+ 
+TURNO 3
+El robot hace la pose brazos_arriba
+El ninio hace una accion 
+Bien, el ninio acerto!!! Ambos hicieron la pose brazos_arriba
+ 
+TURNO 4
+El robot hace la pose inventada2
+El ninio grita entonces el robot le pide silencio
+El robot le recuerda al ninio que la pose es inventada2
+El ninio hace una accion 
+Mal, el ninio fallo!!! El robot hizo la pose inventada2 y el ninio la pose inventada
+ 
+TURNO 5
+El robot hace la pose inventada
+El ninio grita entonces el robot le pide silencio
+El robot le recuerda al ninio que la pose es inventada
+El ninio hace una accion 
+Mal, el ninio fallo!!! El robot hizo la pose inventada y el ninio la pose inventada2
+ 
+El robot finaliza el juego imita_al_robot
+<== Focus MAIN
