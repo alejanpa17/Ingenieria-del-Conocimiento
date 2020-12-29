@@ -7,8 +7,6 @@
               (explicar)
               (saludar)
               (en_proceso)
-              ;(interrupcion)
-              (recordar)
               (finalizado)
               (turno ?j - jugador)
               (ninio ?j - jugador)
@@ -19,7 +17,14 @@
               (accion_respuesta ?c - accion ?r - respuesta)
 )
 
-(:functions (ronda) (cartas_emparejadas) (cartas_giradas) (posicion_carta ?a - animal ?p - posicion) (interrupcion))
+(:functions (ronda)
+            (num_rondas)
+            (cartas_emparejadas)
+            (num_parejas_cartas)
+            (cartas_giradas)
+            (posicion_carta ?a - animal ?p - posicion)
+            (interrupcion)
+)
 
 
 (:action identificar_ninio
@@ -91,11 +96,11 @@
 
 (:action finalizar_ronda
 	 :parameters (?j - jugador)
-	 :precondition (and (en_proceso) (cambiar_turno) (turno ?j) (>= (cartas_emparejadas) 3))
+	 :precondition (and (en_proceso) (cambiar_turno) (turno ?j) (>= (cartas_emparejadas) (num_parejas_cartas)))
 	 :effect
 		(and  (empezar)
           (increase (ronda) 1)
-          (decrease (cartas_emparejadas) 3)
+          (decrease (cartas_emparejadas) (num_parejas_cartas))
           (not (en_proceso))
           (not (cambiar_turno))
           (not (turno ?j))
@@ -109,6 +114,14 @@
                 (increase (interrupcion) 1))
 )
 
+(:action finalizar_juego
+	 :parameters ()
+	 :precondition (and (empezar) (>= (ronda) (num_rondas)) ;(>= (interrupcion) 3)
+   )
+	 :effect
+		(and  (finalizado)
+          (not (empezar)))
+)
 
 (:action cambiar_turno
 	 :parameters (?j1 ?j2 - jugador)
@@ -136,13 +149,4 @@
             (increase (cartas_emparejadas) 1))))
 )
 
-
-
-(:action finalizar_juego
-	 :parameters ()
-	 :precondition (and (empezar) (>= (ronda) 2) (>= (interrupcion) 3))
-	 :effect
-		(and  (finalizado)
-          (not (empezar)))
-)
 )

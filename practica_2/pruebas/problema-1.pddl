@@ -11,7 +11,9 @@
 (:init
        (init)
        (= (ronda) 0)
+			 (= (num_rondas) 2)
        (= (cartas_emparejadas) 0)
+			 (= (num_parejas_cartas) 3)
 			 (= (cartas_giradas) 0)
 			 (= (interrupcion) 0)
 			 (ninio LUCAS)
@@ -28,9 +30,6 @@
        (= (posicion_carta GATO C4) 1)
        (= (posicion_carta PERRO C5) 1)
        (= (posicion_carta PERRO C6) 1)
-			 (accion_respuesta no_mira atiende)
-			 (accion_respuesta grita silencio)
-			 (accion_respuesta pega calma)
 )
 
 (:goal (finalizado))
